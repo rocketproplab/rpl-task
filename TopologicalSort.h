@@ -1,7 +1,1 @@
-class TopologicalSort{
-public:
-
-
-private:
-
-};
+RplTask[] topologicalSort(RplTask[] tasks, int numTasks);
