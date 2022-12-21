@@ -11,7 +11,8 @@ public:
 	int getSize();
 	void add(RplTask* obj);
 	RplTask* get(int index);
-	void deleteIndex(int index);
+	bool contains(RplTask* task);
+	void deleteTask(RplTask* task);
 	TaskLinkedList() : size(0), head(nullptr), tail(nullptr) {};
 	int size;
 	void deleteNode(Node* node);

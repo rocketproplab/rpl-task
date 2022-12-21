@@ -17,6 +17,43 @@ void TaskLinkedList::add(RplTask* obj){
 	}
 }
 
+void TaskLinkedList::deleteTask(RplTask* task){
+	if(size == 0){
+		return;
+	}
+	if(head->value == task){
+		Node* newHead = head->next;
+		delete head->value;
+		delete head;	
+		head = newHead;	
+		size--;
+	}else{
+		Node* curr = head;
+		while(curr->next != nullptr && curr->next->value != task){
+			curr = curr->next;
+		}
+		if(curr->next == nullptr){
+			return;
+		}
+		size--;
+		Node* toDelete = curr->next;
+		curr->next = toDelete->next;
+		delete toDelete->value;
+		delete toDelete;
+	}
+}
+
+bool TaskLinkedList::contains(RplTask* task){
+	Node* curr = head;
+	while(curr != nullptr && curr->value != task){
+		curr = curr->next;
+	}
+	if(curr == nullptr){
+		return false;
+	}
+	return true;
+}
+
 RplTask* TaskLinkedList::get(int index){
 	if(size == 0){
 		return nullptr;
