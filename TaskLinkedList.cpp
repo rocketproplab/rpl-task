@@ -75,6 +75,18 @@ void TaskLinkedList::deleteNode(Node* node){
 	}
 }
 
+int TaskLinkedList::getIndex(RplTask* task){
+	Node* curr = head;
+	int counter = 0;
+	while(curr != nullptr){
+		if(curr->value == task){
+			return counter;
+		}
+		++counter;		
+	}
+	return -1;
+}
+
 // TaskLinkedList::TaskLinkedList(){
 
 // }
