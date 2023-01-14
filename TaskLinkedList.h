@@ -12,6 +12,7 @@ public:
 	void add(RplTask* obj);
 	RplTask* get(int index);
 	bool contains(RplTask* task);
+	int getIndex(RplTask* task);
 	void deleteTask(RplTask* task);
 	TaskLinkedList() : size(0), head(nullptr), tail(nullptr) {};
 	int size;

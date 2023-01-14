@@ -39,4 +39,3 @@ void visit(RplTask* task, Graph graph, TaskLinkedList* output){
 	output->add(task);
 }
 
-
