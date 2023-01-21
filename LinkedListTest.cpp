@@ -122,3 +122,59 @@ TEST(ContainsTest, ContainsTestNonEmptyList){
 	//delete task2;
 	//delete task3;
 }
+
+TEST(DeleteTaskTest, DeleteSingleElement){
+	TaskLinkedList list;
+	
+	RplTask* task1 = new RplTask();
+	RplTask* task2 = new RplTask();
+
+	list.add(task1);
+	list.add(task2);
+
+	list.deleteTask(task1);
+	EXPECT_EQ(list.getSize(), 1);
+	EXPECT_EQ(list.head->value, task2);
+	EXPECT_EQ(list.tail->value, task2);
+}
+
+TEST(DeleteTaskTest, DeleteThenAdd){
+	TaskLinkedList list;
+	
+	RplTask* task1 = new RplTask();
+	RplTask* task2 = new RplTask();
+	RplTask* task3 = new RplTask();
+
+	list.add(task1);
+	list.add(task2);
+
+	list.deleteTask(task1);
+	list.add(task3);
+
+	EXPECT_EQ(list.getSize(), 2);
+	EXPECT_EQ(list.head->value, task2);
+	EXPECT_EQ(list.tail->value, task3);
+}
+
+
+TEST(DeleteTaskTest, DeleteAll){
+	TaskLinkedList list;
+	
+	RplTask* task1 = new RplTask();
+	RplTask* task2 = new RplTask();
+	RplTask* task3 = new RplTask();
+
+	list.add(task1);
+	list.add(task2);
+
+	list.deleteTask(task1);
+	list.deleteTask(task2);
+
+	EXPECT_EQ(list.getSize(), 0);
+	EXPECT_EQ(list.head->value, nullptr);
+	EXPECT_EQ(list.tail->value, nullptr);
+}
+
+
+
+
