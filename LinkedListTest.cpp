@@ -10,8 +10,8 @@ TEST(AddTest, AddEmptyTest){
 	RplTask* task1 = new RplTask();
 	list.add(task1);
 	EXPECT_EQ(list.getSize(), 1);
-	EXPECT_EQ(list.head->next, task1);
-	delete task1;
+	EXPECT_EQ(list.head->value, task1);
+	//delete task1;
 	//RplTask* task2 = new RplTask();
 	//list.add(task2);
 }
@@ -19,22 +19,23 @@ TEST(AddTest, AddEmptyTest){
 /*
 	Adding a new node to a non-empty list and check add method
 */
-TEST(AddTest, AddNonEmptyList){
+TEST(AddTest, AddMultiple){
 	TaskLinkedList list;
 	RplTask* task1 = new RplTask();
 	RplTask* task2 = new RplTask();
 	RplTask* task3 = new RplTask();
 
-	list.head->next = task1;
-	task1->next = task2;
-
+	list.add(task1);
+	list.add(task2);
 	list.add(task3);
 	EXPECT_EQ(list.getSize(),3);
-	EXPECT_EQ(task2->next, task3);
+	EXPECT_EQ(list.head->value, task1);
+	EXPECT_EQ(list.head->next->value, task2);
+	EXPECT_EQ(list.head->next->next->value, task3);
 
-	delete task1;
-	delete task2;
-	delete task3;
+	//delete task1;
+	//delete task2;
+	//delete task3;
 }
 
 /*
@@ -55,17 +56,18 @@ TEST(GetTest, GetNodeWithIndex){
 	RplTask* task2 = new RplTask();
 	RplTask* task3 = new RplTask();
 
-	list.head->next = task1;
-	task1->next = task2;
-	task2->next = task3;
+
+	list.add(task1);
+	list.add(task2);
+	list.add(task3);
 
 	EXPECT_EQ(list.get(0), task1);
 	EXPECT_EQ(list.get(1), task2);
 	EXPECT_EQ(list.get(2), task3);
 	
-	delete task1;
-	delete task2;
-	delete task3;
+	//delete task1;
+	//delete task2;
+	//delete task3;
 }
 
 /*
@@ -73,8 +75,8 @@ TEST(GetTest, GetNodeWithIndex){
 */
 TEST(GetIndexTest, GetIndexWithEmptyList){
 	TaskLinkedList list;
-	EXPECT_EQ(list.getIndex(1), -1);
-
+	RplTask* task1 = new RplTask();
+	EXPECT_EQ(list.getIndex(task1), -1);
 }
 
 /*
@@ -87,17 +89,17 @@ TEST(GetIndexTest, GetIndexWithNonEmptyList){
 	RplTask* task2 = new RplTask();
 	RplTask* task3 = new RplTask();
 
-	list.head->next = task1;
-	task1->next = task2;
-	task2->next = task3;
+	list.add(task1);
+	list.add(task2);
+	list.add(task3);
 
 	EXPECT_EQ(list.getIndex(task1),0);
 	EXPECT_EQ(list.getIndex(task2),1);
 	EXPECT_EQ(list.getIndex(task3),2);
 
-	delete task1;
-	delete task2;
-	delete task3;
+	//delete task1;
+	//delete task2;
+	//delete task3;
 }
 /*
 	Test contains method for an non empty list
@@ -109,14 +111,14 @@ TEST(ContainsTest, ContainsTestNonEmptyList){
 	RplTask* task2 = new RplTask();
 	RplTask* task3 = new RplTask();
 
-	list.head->next = task1;
-	task1->next = task2;
+	list.add(task1);
+	list.add(task2);
 
-	EXPECT_EQ(list.contains(task1, true));
-	EXPECT_EQ(list.contains(task2, true));
-	EXPECT_EQ(list.contains(task3, false));
+	EXPECT_EQ(list.contains(task1), true);
+	EXPECT_EQ(list.contains(task2), true);
+	EXPECT_EQ(list.contains(task3), false);
 
-	delete task1;
-	delete task2;
-	delete task3;
+	//delete task1;
+	//delete task2;
+	//delete task3;
 }
