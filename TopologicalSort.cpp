@@ -1,4 +1,5 @@
 #include "TopologialSort.h"
+#include <stdexcept>
 
 RplTask[] topologicalSort(Graph graph){
 	TaskLinkedList output;
@@ -25,7 +26,7 @@ void visit(RplTask* task, Graph graph, TaskLinkedList* output){
 		return;
 	}
 	if(graph.temporaryMarks.contains(task)){
-		//TODO: Throw error	
+		throw std::invalid_argument("graph has cycle");
 	}
 
 	graph.temporaryMarks.add(task);
