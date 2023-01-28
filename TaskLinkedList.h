@@ -1,4 +1,6 @@
-#include "RplTask.h"
+#pragma once
+
+class RplTask;
 
 class TaskLinkedList {
 public:

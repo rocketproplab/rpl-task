@@ -1,14 +1,17 @@
+#include "TaskLinkedList.h"
 
 enum TaskStatus { CREATED, STARTING, RUNNING, PAUSING, PAUSED, RESUMING, STOPPED };
 class RplTask {
 //private:
 //    // Variables that make sense here
 protected:
-    virtual void onStart(); // Children implement for first-time start behavior.
-    virtual void onResume(); // Children implement for handling resume
-    virtual void onPause(); // Children implement for handling pause
-    virtual void onLoop(); // Children implement for handling loop
+    virtual void onStart() = 0; // Children implement for first-time start behavior.
+    virtual void onResume() = 0; // Children implement for handling resume
+    virtual void onPause() = 0; // Children implement for handling pause
+    virtual void onLoop() = 0; // Children implement for handling loop
 public:
+    TaskStatus status;
+    TaskLinkedList dependList;
     /*
         Starts this task.
     */
@@ -40,5 +43,10 @@ public:
         If the status changed, this function should reflect the current state as of
         the most recent loop.
     */
-    TaskStatus getTaskStatus();
+    TaskStatus getStatus();
+    void addDepend(RplTask* newDepend);
+    bool checkDepend();
+    void resume();
+    RplTask() : status(CREATED), dependList(TaskLinkedList()) {};
+    ~RplTask();
 };

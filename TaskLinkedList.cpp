@@ -1,6 +1,8 @@
 #include "TaskLinkedList.h"
-#include <iostream>
+#include "RplTask.h"
 
+
+#include <iostream>
 using namespace std;
 
 int TaskLinkedList::getSize(){

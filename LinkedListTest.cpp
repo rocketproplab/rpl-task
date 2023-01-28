@@ -2,12 +2,20 @@
 #include "TaskLinkedList.h"
 #include "RplTask.h"
 
+class TestTask : public RplTask {
+	void onStart() {};
+	void onResume() {};
+	void onPause() {};
+	void onLoop() {};
+};
+
 /*
 	Adding a new node to an empty list and check add method
 */
 TEST(AddTest, AddEmptyTest){
 	TaskLinkedList list;
-	RplTask* task1 = new RplTask();
+	RplTask* task1 = (RplTask*)new TestTask();
+
 	list.add(task1);
 	EXPECT_EQ(list.getSize(), 1);
 	EXPECT_EQ(list.head->value, task1);
@@ -21,9 +29,10 @@ TEST(AddTest, AddEmptyTest){
 */
 TEST(AddTest, AddMultiple){
 	TaskLinkedList list;
-	RplTask* task1 = new RplTask();
-	RplTask* task2 = new RplTask();
-	RplTask* task3 = new RplTask();
+
+	RplTask* task1 = (RplTask*)new TestTask();
+	RplTask* task2 = (RplTask*)new TestTask();
+	RplTask* task3 = (RplTask*)new TestTask();
 
 	list.add(task1);
 	list.add(task2);
@@ -52,9 +61,9 @@ TEST(GetTest, GetNodeEmptyList){
 TEST(GetTest, GetNodeWithIndex){
 	TaskLinkedList list;
 	
-	RplTask* task1 = new RplTask();
-	RplTask* task2 = new RplTask();
-	RplTask* task3 = new RplTask();
+	RplTask* task1 = (RplTask*)new TestTask();
+	RplTask* task2 = (RplTask*)new TestTask();
+	RplTask* task3 = (RplTask*)new TestTask();
 
 
 	list.add(task1);
@@ -75,7 +84,7 @@ TEST(GetTest, GetNodeWithIndex){
 */
 TEST(GetIndexTest, GetIndexWithEmptyList){
 	TaskLinkedList list;
-	RplTask* task1 = new RplTask();
+	RplTask* task1 = (RplTask*) new TestTask();
 	EXPECT_EQ(list.getIndex(task1), -1);
 }
 
@@ -85,9 +94,12 @@ TEST(GetIndexTest, GetIndexWithEmptyList){
 TEST(GetIndexTest, GetIndexWithNonEmptyList){
 	TaskLinkedList list;
 	
-	RplTask* task1 = new RplTask();
-	RplTask* task2 = new RplTask();
-	RplTask* task3 = new RplTask();
+	
+	RplTask* task1 = (RplTask*)new TestTask();
+	RplTask* task2 = (RplTask*)new TestTask();
+	RplTask* task3 = (RplTask*)new TestTask();
+	
+	
 
 	list.add(task1);
 	list.add(task2);
@@ -107,9 +119,9 @@ TEST(GetIndexTest, GetIndexWithNonEmptyList){
 TEST(ContainsTest, ContainsTestNonEmptyList){
 	TaskLinkedList list;
 	
-	RplTask* task1 = new RplTask();
-	RplTask* task2 = new RplTask();
-	RplTask* task3 = new RplTask();
+	RplTask* task1 = (RplTask*)new TestTask();
+	RplTask* task2 = (RplTask*)new TestTask();
+	RplTask* task3 = (RplTask*)new TestTask();
 
 	list.add(task1);
 	list.add(task2);
@@ -126,8 +138,9 @@ TEST(ContainsTest, ContainsTestNonEmptyList){
 TEST(DeleteTaskTest, DeleteSingleElement){
 	TaskLinkedList list;
 	
-	RplTask* task1 = new RplTask();
-	RplTask* task2 = new RplTask();
+	RplTask* task1 = (RplTask*)new TestTask();
+	RplTask* task2 = (RplTask*)new TestTask();
+	RplTask* task3 = (RplTask*)new TestTask();
 
 	list.add(task1);
 	list.add(task2);
@@ -141,9 +154,9 @@ TEST(DeleteTaskTest, DeleteSingleElement){
 TEST(DeleteTaskTest, DeleteThenAdd){
 	TaskLinkedList list;
 	
-	RplTask* task1 = new RplTask();
-	RplTask* task2 = new RplTask();
-	RplTask* task3 = new RplTask();
+	RplTask* task1 = (RplTask*)new TestTask();
+	RplTask* task2 = (RplTask*)new TestTask();
+	RplTask* task3 = (RplTask*)new TestTask();
 
 	list.add(task1);
 	list.add(task2);
@@ -160,9 +173,9 @@ TEST(DeleteTaskTest, DeleteThenAdd){
 TEST(DeleteTaskTest, DeleteAll){
 	TaskLinkedList list;
 	
-	RplTask* task1 = new RplTask();
-	RplTask* task2 = new RplTask();
-	RplTask* task3 = new RplTask();
+	RplTask* task1 = (RplTask*)new TestTask();
+	RplTask* task2 = (RplTask*)new TestTask();
+	RplTask* task3 = (RplTask*)new TestTask();
 
 	list.add(task1);
 	list.add(task2);
