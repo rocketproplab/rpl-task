@@ -5,10 +5,10 @@ class RplTask {
 //private:
 //    // Variables that make sense here
 protected:
-    virtual void onStart() = 0; // Children implement for first-time start behavior.
-    virtual void onResume() = 0; // Children implement for handling resume
-    virtual void onPause() = 0; // Children implement for handling pause
-    virtual void onLoop() = 0; // Children implement for handling loop
+    virtual void onStart() {}; // Children implement for first-time start behavior.
+    virtual void onResume() {}; // Children implement for handling resume
+    virtual void onPause() {}; // Children implement for handling pause
+    virtual void onLoop() {}; // Children implement for handling loop
 public:
     TaskStatus status;
     TaskLinkedList dependList;

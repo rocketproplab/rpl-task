@@ -30,9 +30,9 @@ TEST(AddTest, AddEmptyTest){
 TEST(AddTest, AddMultiple){
 	TaskLinkedList list;
 
-	RplTask* task1 = (RplTask*)new TestTask();
-	RplTask* task2 = (RplTask*)new TestTask();
-	RplTask* task3 = (RplTask*)new TestTask();
+	RplTask* task1 = new TestTask();
+	RplTask* task2 = new TestTask();
+	RplTask* task3 = new TestTask();
 
 	list.add(task1);
 	list.add(task2);
@@ -95,11 +95,13 @@ TEST(GetIndexTest, GetIndexWithNonEmptyList){
 	TaskLinkedList list;
 	
 	
-	RplTask* task1 = (RplTask*)new TestTask();
-	RplTask* task2 = (RplTask*)new TestTask();
-	RplTask* task3 = (RplTask*)new TestTask();
-	
-	
+	// RplTask* task1 = (RplTask*)new TestTask();
+	// RplTask* task2 = (RplTask*)new TestTask();
+	// RplTask* task3 = (RplTask*)new TestTask();
+
+	RplTask* task1 = new TestTask();
+	RplTask* task2 = new TestTask();
+	RplTask* task3 = new TestTask();
 
 	list.add(task1);
 	list.add(task2);
@@ -108,6 +110,7 @@ TEST(GetIndexTest, GetIndexWithNonEmptyList){
 	EXPECT_EQ(list.getIndex(task1),0);
 	EXPECT_EQ(list.getIndex(task2),1);
 	EXPECT_EQ(list.getIndex(task3),2);
+
 
 	//delete task1;
 	//delete task2;
