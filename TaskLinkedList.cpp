@@ -48,6 +48,10 @@ void TaskLinkedList::deleteTask(RplTask* task){
 		delete toDelete->value;
 		delete toDelete;
 	}
+	if(size == 0){
+		tail = nullptr;
+		head = nullptr;
+	}
 }
 
 bool TaskLinkedList::contains(RplTask* task){

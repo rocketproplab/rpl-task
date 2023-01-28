@@ -171,8 +171,8 @@ TEST(DeleteTaskTest, DeleteAll){
 	list.deleteTask(task2);
 
 	EXPECT_EQ(list.getSize(), 0);
-	EXPECT_EQ(list.head->value, nullptr);
-	EXPECT_EQ(list.tail->value, nullptr);
+	EXPECT_EQ(list.head, nullptr);
+	EXPECT_EQ(list.tail, nullptr);
 }
 
 
