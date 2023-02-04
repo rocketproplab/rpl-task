@@ -153,6 +153,11 @@ TEST(DeleteTaskTest, DeleteThenAdd){
 	list.add(task2);
 
 	list.deleteTask(task1);
+	
+	EXPECT_EQ(list.getSize(), 1);
+	EXPECT_EQ(list.head->value, task2);
+	EXPECT_EQ(list.tail->value, task2);
+
 	list.add(task3);
 
 	EXPECT_EQ(list.getSize(), 2);
