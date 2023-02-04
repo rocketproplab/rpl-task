@@ -1,6 +1,6 @@
 # RPL Task Library
 
-##Information for running tests
+## Information for running tests
 
 Need to install google test + cmake to run tests. Follow guide from here [Google Test Guide](http://google.github.io/googletest/) to install google test.
 
