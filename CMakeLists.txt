@@ -26,6 +26,17 @@ target_link_libraries(
   LinkedListTest
   GTest::gtest_main
 )
+add_executable(
+  RplTaskTest
+  RplTaskTest.cpp
+  RplTask.cpp
+  TaskLinkedList.cpp
+)
+target_link_libraries(
+  RplTaskTest
+  GTest::gtest_main
+)
 
 include(GoogleTest)
 gtest_discover_tests(LinkedListTest)
+gtest_discover_tests(RplTaskTest)
