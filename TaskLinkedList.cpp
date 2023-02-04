@@ -1,10 +1,6 @@
 #include "TaskLinkedList.h"
 #include "RplTask.h"
 
-
-#include <iostream>
-using namespace std;
-
 int TaskLinkedList::getSize(){
 	return size;
 }
@@ -12,9 +8,7 @@ int TaskLinkedList::getSize(){
 void TaskLinkedList::add(RplTask* obj){
 	Node* newNode = new Node();
 	newNode->value = obj;	
-	cout << "here1" << endl;
 	if(tail == nullptr){
-		cout << "here2" << endl;
 		head = newNode;
 		tail = newNode;		
 		size++;	
@@ -23,7 +17,6 @@ void TaskLinkedList::add(RplTask* obj){
 		size++;
 		tail = tail->next;
 	}
-	cout << "here3" << endl;
 }
 
 void TaskLinkedList::deleteTask(RplTask* task){
