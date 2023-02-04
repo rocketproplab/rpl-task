@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "RplTask.h"
+#include "RplTaskTest.h"
 
 /*tests TODO:
 * - check all statuses are set correctly
@@ -9,7 +10,7 @@
 */
 
 
-TEST(statusTest, ) {
+TEST(statusTest, AddEmptyTest) {
 	TaskLinkedList list;
 	RplTask* task1 = (RplTask*)new TestTask();
 
