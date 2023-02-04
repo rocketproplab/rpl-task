@@ -27,5 +27,19 @@ target_link_libraries(
   GTest::gtest_main
 )
 
+
+add_executable(
+  TopologicalTest
+  TopologicalSortTest.cpp
+  RplTask.cpp
+  TaskLinkedList.cpp
+  TopologicalSortTest.cpp
+)
+target_link_libraries(
+  TopologicalTest
+  GTest::gtest_main
+)
+
 include(GoogleTest)
 gtest_discover_tests(LinkedListTest)
+gtest_discover_tests(TopologicalTest)
