@@ -1,13 +1,7 @@
 #include <gtest/gtest.h>
 #include "TaskLinkedList.h"
 #include "RplTask.h"
-
-class TestTask : public RplTask {
-	void onStart() {};
-	void onResume() {};
-	void onPause() {};
-	void onLoop() {};
-};
+#include "LinkedListTest.h"
 
 /*
 	Adding a new node to an empty list and check add method
@@ -19,9 +13,6 @@ TEST(AddTest, AddEmptyTest){
 	list.add(task1);
 	EXPECT_EQ(list.getSize(), 1);
 	EXPECT_EQ(list.head->value, task1);
-	//delete task1;
-	//RplTask* task2 = new RplTask();
-	//list.add(task2);
 }
 
 /*
@@ -42,9 +33,6 @@ TEST(AddTest, AddMultiple){
 	EXPECT_EQ(list.head->next->value, task2);
 	EXPECT_EQ(list.head->next->next->value, task3);
 
-	//delete task1;
-	//delete task2;
-	//delete task3;
 }
 
 /*
