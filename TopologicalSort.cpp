@@ -1,8 +1,8 @@
 #include "TopologialSort.h"
 #include <stdexcept>
 
-RplTask[] topologicalSort(Graph graph){
-	TaskLinkedList output;
+TaskLinkedList topologicalSort(Graph graph){
+	TaskLinkedList outputReverse;
 	TaskLinkedList unvisited;
 	TaskLinkedList::Node current = graph.labels.head;
 	while(current != nullptr){
@@ -11,17 +11,17 @@ RplTask[] topologicalSort(Graph graph){
 	}
 	
 	while(unvisited.size() != 0){
-		visit(unvisited.get(0), graph, &output);
+		visit(unvisited.get(0), graph, &outputReverse);
 	}
 	
-	RplTask arrayOut[graph.size];
-	for(int i = 0; i < graph.size; ++i){
-		arrayOut[graph.size - i - 1] = output.get(i);
+	TaskLinkedList output;	
+	for(int i = outputReverse.getSize()-1; i >=  0; --i){
+		output.add(outputReverse.get(i));
 	}
 	return arrayOut;
 }
 
-void visit(RplTask* task, Graph graph, TaskLinkedList* output){
+void visit(RplTask* task, Graph graph, TaskLinkedList* outputReverse){
 	if(graph.permanentMarks.contains(task)){
 		return;
 	}
@@ -31,12 +31,12 @@ void visit(RplTask* task, Graph graph, TaskLinkedList* output){
 
 	graph.temporaryMarks.add(task);
 	
-	for(RplTask* neighbor : graph.graph[labels.getIndex(task)]){
+	for(RplTask* neighbor : *(graph.graph + labels.getIndex(task))){
 		visit(neighbor);
 	}	
 
 	graph.temporaryMarks.removeTask(task);
 	graph.permanentMarks.add(task);
-	output->add(task);
+	outputReverse->add(task);
 }
 

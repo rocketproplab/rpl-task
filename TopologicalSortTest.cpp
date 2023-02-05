@@ -1,5 +1,10 @@
 #include <gtest/gtest.h>
+#include "TopologicalSort.h"
 
-TEST(HelloTest, TestTesting){
-	EXPECT_EQ(1,1);
+
+TEST(SortTest, EmptyGraph){
+	Graph g;
+
+	ASSERT_EQ(topologicalSort(g).getSize(), 0) << "nonzero list returned"; 
 }
+

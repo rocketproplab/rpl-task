@@ -1,4 +1,5 @@
 #include "TaskLinkedList.h"
+#include "RplTask.h"
 
 struct Graph{
 	public:
@@ -6,8 +7,8 @@ struct Graph{
 		TaskLinkedList temporaryMarks; //Leave empty b4 topo-sort
 		TaskLinkedList permanentMarks; //Leave empty b4 topo-sort
 		int size; //num nodes
-		TaskLinkedList graph[];
+		TaskLinkedList* graph;
 };
 
-RplTask[] topologicalSort(Graph graph);
-void visit(Rpltask* task, Graph graph, TaskLinkedList* output);
+TaskLinkedList topologicalSort(Graph graph);
+void visit(RplTask* task, Graph graph, TaskLinkedList* output);
