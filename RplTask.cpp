@@ -1,9 +1,5 @@
 #include "RplTask.h"
 
-//RplTask::RplTask() {
-//	status = CREATED;
-//}
-//
 RplTask::~RplTask() {
 	//delete dependList;
 }
@@ -35,11 +31,13 @@ void RplTask::start() {
 }
 
 void RplTask::pause() {
-	status = PAUSING;
+	if (status != STOPPED) {
+		status = PAUSING;
+	}
 }
 
 void RplTask::resume() {
-	if (status == PAUSED) {
+	if (status == STOPPED) {
 		status = RESUMING;
 	}
 }
@@ -52,17 +50,14 @@ void RplTask::process(float deltaTime) { //do stuff for task each loop
 		onStart();
 		status = RUNNING;
 	}
-	if (status == RUNNING) {
+	else if (status == RUNNING) {
 		onLoop();
 	}
-	if (status == PAUSING) {
+	else if (status == PAUSING) {
 		onPause();
-		status = PAUSED;
+		status = STOPPED;
 	}
-	//if (status == PAUSED) {
-	//	//do nothing
-	//}
-	if (status == RESUMING) {
+	else if (status == RESUMING) {
 		onResume();
 		status = RUNNING;
 	}

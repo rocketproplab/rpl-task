@@ -1,6 +1,9 @@
 class TestTask : public RplTask {
-	void onStart() {};
-	void onResume() {};
-	void onPause() {};
-	void onLoop() {};
+	public:
+		int i = 0;
+	protected:
+		void onStart() {i = 1;};
+		void onResume() {i = 2;};
+		void onPause() {i = 3;};
+		void onLoop() {i = 4;};
 }; 

@@ -9,39 +9,119 @@
 * - 
 */
 
-
-TEST(statusTest, AddEmptyTest) {
-	TaskLinkedList list;
+/*
+	start, process, pause, processs, resume, process a task; check statuses inbetween
+*/
+TEST(statusTest, pauseResume) {
 	RplTask* task1 = (RplTask*)new TestTask();
+	TaskStatus expected = CREATED;
+	EXPECT_EQ(task1->getStatus(), expected) << "CREATED";
 
-	list.add(task1);
-	EXPECT_EQ(list.getSize(), 1);
-	EXPECT_EQ(list.head->value, task1);
-	//delete task1;
-	//RplTask* task2 = new RplTask();
-	//list.add(task2);
+	task1->start();
+	expected = STARTING;
+	EXPECT_EQ(task1->getStatus(), expected) << "STARTING";
+
+	task1->process(0); //needs to process once before pausing, so onStart() can run
+	expected = RUNNING;
+	EXPECT_EQ(task1->getStatus(), expected) << "RUNNING";
+
+	task1->pause();
+	expected = PAUSING;
+	EXPECT_EQ(task1->getStatus(), expected) << "PAUSING";
+
+	task1->process(0);
+	expected = STOPPED;
+	EXPECT_EQ(task1->getStatus(), expected) << "STOPPED";
+
+	task1->resume();
+	expected = RESUMING;
+	EXPECT_EQ(task1->getStatus(), expected) << "RESUMING";
+
+	task1->process(0);
+	expected = RUNNING;
+	EXPECT_EQ(task1->getStatus(), expected) << "RUNNING";
 }
 
-TEST(addDependTest, AddEmptyTest) {
+/*
+	start a task with multiple dependencies
+*/
+TEST(dependTest, dependStart) {
+	RplTask* task1 = (RplTask*)new TestTask();
+	EXPECT_EQ(task1->checkDepend(), true);
+
+	RplTask* task2 = (RplTask*)new TestTask();
+	RplTask* task3 = (RplTask*)new TestTask();
+
+	task1->addDepend(task2);
+	task1->addDepend(task3);
+	EXPECT_EQ(task1->checkDepend(), false) << "0 dependencies complete";
 	
+	task2->process(0);
+	task2->pause();
+	task2->process(0);
+
+	task1->start(); //doesn't start because dependencies are incomplete
+	EXPECT_EQ(task1->checkDepend(), false) << "1 dependencies complete";
+
+	task3->process(0);
+	task3->pause();
+	task3->process(0);
+
+	task1->start(); //only starts if dependencies STOPPED
+	EXPECT_EQ(task1->checkDepend(), true) << "all dependencies complete";
 }
 
-TEST(checkDependTest, AddEmptyTest) {
-	
+/*
+	check onStart runs properly
+*/
+TEST(onTest, onStartTest) {
+	TestTask* task1 = new TestTask();
+	EXPECT_EQ(task1->i, 0);
+
+	task1->start();
+	task1->process(0);
+	EXPECT_EQ(task1->i, 1);
 }
 
-TEST(startTest, AddEmptyTest) {
-	
+/*
+	check onLoop runs properly
+*/
+TEST(onTest, onLoopTest) {
+	TestTask* task1 = new TestTask();
+	EXPECT_EQ(task1->i, 0);
+
+	task1->start();
+	task1->process(0);
+	task1->process(0);
+	EXPECT_EQ(task1->i, 4);
 }
 
-TEST(pauseTest, AddEmptyTest) {
-	
+/*
+	check onPause runs properly
+*/
+TEST(onTest, onPauseTest) {
+	TestTask* task1 = new TestTask();
+	EXPECT_EQ(task1->i, 0);
+
+	task1->start();
+	task1->process(0);
+	task1->pause();
+	task1->process(0);
+	EXPECT_EQ(task1->i, 3);
 }
 
-TEST(resumeTest, AddEmptyTest) {
-	
-}
+/*
+	check onResume runs properly
+*/
+TEST(onTest, onResumeTest) {
+	TestTask* task1 = new TestTask();
+	EXPECT_EQ(task1->i, 0);
 
-TEST(processTest, AddEmptyTest) {
-	
+	task1->start();
+	task1->process(0);
+	task1->pause();
+	task1->process(0);
+	task1->resume();
+	task1->process(0);
+	EXPECT_EQ(task1->i, 2);
 }
