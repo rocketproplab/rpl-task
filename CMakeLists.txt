@@ -33,7 +33,7 @@ add_executable(
   TopologicalSortTest.cpp
   RplTask.cpp
   TaskLinkedList.cpp
-  TopologicalSortTest.cpp
+  TopologicalSort.cpp
 )
 target_link_libraries(
   TopologicalTest
