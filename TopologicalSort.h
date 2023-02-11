@@ -3,9 +3,9 @@
 
 struct Graph{
 	public:
-		TaskLinkedList labels;
-		TaskLinkedList temporaryMarks; //Leave empty b4 topo-sort
-		TaskLinkedList permanentMarks; //Leave empty b4 topo-sort
+		TaskLinkedList labels; // Adjacency list
+		TaskLinkedList temporaryMarks; //Leave empty b4 topo-sort // pre order
+		TaskLinkedList permanentMarks; //Leave empty b4 topo-sort // post order
 		int size; //num nodes
 		TaskLinkedList* graph;
 };
