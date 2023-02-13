@@ -1,12 +1,15 @@
 #include "TaskLinkedList.h"
 #include "RplTask.h"
+#include "iostream"
+
+using namespace std ; 
 
 int TaskLinkedList::getSize(){
 	return size;
 }
 
 void TaskLinkedList::add(RplTask* obj){
-	Node* newNode = new Node();
+	Node* newNode = new Node(); 
 	newNode->value = obj;	
 	if(tail == nullptr){
 		head = newNode;
@@ -19,10 +22,37 @@ void TaskLinkedList::add(RplTask* obj){
 	}
 }
 
+void TaskLinkedList::removeTask(RplTask * task) {
+	if (contains(task) == false) {
+		return ; 
+	}
+	
+	if (task == head->value) {
+		head = head->next ;
+		size -- ; 
+		return ; 
+	}
+
+	Node * cur = head->next;
+	Node * prev = head ; 
+	Node * next = nullptr ; 
+
+	while (cur != nullptr) {
+		if (cur->value == task) {
+			prev->next = cur->next ; 
+			cur->next = nullptr ;
+			return ; 
+		}
+		prev = cur ;
+		cur = cur->next ; 
+	}
+}
+
 void TaskLinkedList::deleteTask(RplTask* task){
 	if(size == 0){
 		return;
 	}
+	cout << "Deleting task inside LL: " << task << endl ; 
 	if(head->value == task){
 		Node* newHead = head->next;
 		delete head->value;
@@ -73,13 +103,16 @@ RplTask* TaskLinkedList::get(int index){
 	return curr->value;
 }
 
-void TaskLinkedList::deleteNode(Node* node){
-	if(node != nullptr){
-		deleteNode(node->next);
-		delete node->value;
-		delete node;
+void TaskLinkedList::deleteNode(Node* node){ 
+
+	if (node != nullptr && size > 0) {
+		deleteNode(node->next) ;
+		node->next = nullptr ; 
+		delete node->value ; 
+		delete node ; 
 	}
-}
+	}
+
 
 int TaskLinkedList::getIndex(RplTask* task){
 	Node* curr = head;
@@ -98,7 +131,18 @@ int TaskLinkedList::getIndex(RplTask* task){
 
 // }
 
-TaskLinkedList::~TaskLinkedList(){
+void TaskLinkedList::deleteList() {
 	deleteNode(head);
+
+}
+
+TaskLinkedList::~TaskLinkedList(){
+	//deleteNode(head); 
+	/*
+	Calling the destructor was giving segfaults in the graph. 
+	Multiple pointers were trying to call the destructor on the same items, which were already deleted. 
+	*/
+	
+	
 }
 

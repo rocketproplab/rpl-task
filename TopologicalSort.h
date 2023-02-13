@@ -8,7 +8,9 @@ struct Graph{
 		TaskLinkedList permanentMarks; //Leave empty b4 topo-sort // post order
 		int size; //num nodes
 		TaskLinkedList* graph;
+		~Graph() ;
 };
 
-TaskLinkedList topologicalSort(Graph graph);
-void visit(RplTask* task, Graph graph, TaskLinkedList* output);
+TaskLinkedList topologicalSort(Graph & graph);
+void visit(RplTask* task, Graph &graph, TaskLinkedList * outputReverse);
+
