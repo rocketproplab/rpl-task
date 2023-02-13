@@ -14,9 +14,6 @@ TEST(SortTest, EmptyGraph){
 	ASSERT_EQ(sort.getSize(), 0) << "nonzero list returned"; 
 }
 
-
-
-
 TEST(SortTest, OneElement) {
 	Graph g ;
 	TaskLinkedList l ; 
@@ -220,6 +217,57 @@ TEST(SortTest, ThreeLists){
 	for (int i = 0 ; i < 6 ; ++i) {
 		std::cout << " " << output.get(i) ;
 	}
+}
+
+TEST(SortTest,TreeHeightTwo) {
+	Graph g ; 
+	TaskLinkedList l ; 
+	TaskLinkedList emptyList ; 
+	TaskLinkedList perm ;
+	TaskLinkedList temp ; 
+
+	TestTask * t1 = new TestTask() ;
+	TestTask * t2 = new TestTask() ;
+	TestTask * t3 = new TestTask() ;
+
+	l.add(t2) ;
+	l.add(t3);
+
+	std::cout << t1 << " " << t2 <<  " " << t3 << std::endl;
+
+	TaskLinkedList labels ; 
+	labels.add(t1) ;
+	labels.add(t2) ;
+	labels.add(t3) ;
+
+	TaskLinkedList* graph = (TaskLinkedList *) malloc(3 * sizeof(TaskLinkedList));
+	*graph = l ; 
+	*(graph + 1) = emptyList ; 
+	*(graph + 2) = emptyList ;
+
+ 
+
+	g.labels = labels ;
+	g.size = 3;
+	g.graph = graph ;
+	g.temporaryMarks = temp;
+	g.permanentMarks = perm;
+
+	TaskLinkedList output = topologicalSort(g) ;
+
+	ASSERT_EQ(output.getSize(), 3) << "Size was incorrect.";
+
+	
+	cout <<"Output of test: " ;
+	for (int i = 0 ; i < 3 ; ++i) {
+		std::cout << output.get(i) <<  " " ;
+	}
+
+	
+   
+
+
+
 }
 
 
