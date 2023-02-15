@@ -2,6 +2,7 @@
 #include "TaskLinkedList.h"
 #include "RplTask.h"
 #include "LinkedListTest.h"
+#include "iostream"
 
 /*
 	Adding a new node to an empty list and check add method
@@ -13,6 +14,7 @@ TEST(AddTest, AddEmptyTest){
 	list.add(task1);
 	EXPECT_EQ(list.getSize(), 1);
 	EXPECT_EQ(list.head->value, task1);
+	list.deleteList() ; 
 }
 
 /*
@@ -33,6 +35,8 @@ TEST(AddTest, AddMultiple){
 	EXPECT_EQ(list.head->next->value, task2);
 	EXPECT_EQ(list.head->next->next->value, task3);
 
+	list.deleteList() ; 
+
 }
 
 /*
@@ -41,6 +45,7 @@ TEST(AddTest, AddMultiple){
 TEST(GetTest, GetNodeEmptyList){
 	TaskLinkedList list;
 	EXPECT_EQ(list.get(1), nullptr);
+	list.deleteList() ; 
 }
 
 /*
@@ -62,9 +67,7 @@ TEST(GetTest, GetNodeWithIndex){
 	EXPECT_EQ(list.get(1), task2);
 	EXPECT_EQ(list.get(2), task3);
 	
-	//delete task1;
-	//delete task2;
-	//delete task3;
+	list.deleteList() ; 
 }
 
 /*
@@ -74,6 +77,7 @@ TEST(GetIndexTest, GetIndexWithEmptyList){
 	TaskLinkedList list;
 	RplTask* task1 = (RplTask*) new TestTask();
 	EXPECT_EQ(list.getIndex(task1), -1);
+	list.deleteList() ; 
 }
 
 /*
@@ -82,10 +86,6 @@ TEST(GetIndexTest, GetIndexWithEmptyList){
 TEST(GetIndexTest, GetIndexWithNonEmptyList){
 	TaskLinkedList list;
 	
-	
-	// RplTask* task1 = (RplTask*)new TestTask();
-	// RplTask* task2 = (RplTask*)new TestTask();
-	// RplTask* task3 = (RplTask*)new TestTask();
 
 	RplTask* task1 = new TestTask();
 	RplTask* task2 = new TestTask();
@@ -100,9 +100,7 @@ TEST(GetIndexTest, GetIndexWithNonEmptyList){
 	EXPECT_EQ(list.getIndex(task3),2);
 
 
-	//delete task1;
-	//delete task2;
-	//delete task3;
+	list.deleteList() ; 
 }
 /*
 	Test contains method for an non empty list
@@ -121,9 +119,7 @@ TEST(ContainsTest, ContainsTestNonEmptyList){
 	EXPECT_EQ(list.contains(task2), true);
 	EXPECT_EQ(list.contains(task3), false);
 
-	//delete task1;
-	//delete task2;
-	//delete task3;
+	list.deleteList() ; 
 }
 
 TEST(DeleteTaskTest, DeleteSingleElement){
@@ -140,6 +136,7 @@ TEST(DeleteTaskTest, DeleteSingleElement){
 	EXPECT_EQ(list.getSize(), 1);
 	EXPECT_EQ(list.head->value, task2);
 	EXPECT_EQ(list.tail->value, task2);
+	list.deleteList() ; 
 }
 
 TEST(DeleteTaskTest, DeleteThenAdd){
@@ -163,6 +160,7 @@ TEST(DeleteTaskTest, DeleteThenAdd){
 	EXPECT_EQ(list.getSize(), 2);
 	EXPECT_EQ(list.head->value, task2);
 	EXPECT_EQ(list.tail->value, task3);
+	list.deleteList() ; 
 }
 
 
@@ -182,6 +180,7 @@ TEST(DeleteTaskTest, DeleteAll){
 	EXPECT_EQ(list.getSize(), 0);
 	EXPECT_EQ(list.head, nullptr);
 	EXPECT_EQ(list.tail, nullptr);
+	list.deleteList() ; 
 }
 
 

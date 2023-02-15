@@ -1,8 +1,8 @@
 #include "TaskLinkedList.h"
 #include "RplTask.h"
-#include "iostream"
 
-using namespace std ; 
+
+
 
 int TaskLinkedList::getSize(){
 	return size;
@@ -51,8 +51,7 @@ void TaskLinkedList::removeTask(RplTask * task) {
 void TaskLinkedList::deleteTask(RplTask* task){
 	if(size == 0){
 		return;
-	}
-	cout << "Deleting task inside LL: " << task << endl ; 
+	} 
 	if(head->value == task){
 		Node* newHead = head->next;
 		delete head->value;
@@ -106,7 +105,8 @@ RplTask* TaskLinkedList::get(int index){
 void TaskLinkedList::deleteNode(Node* node){ 
 
 	if (node != nullptr && size > 0) {
-		deleteNode(node->next) ;
+		
+		deleteNode(node->next) ; 
 		node->next = nullptr ; 
 		delete node->value ; 
 		delete node ; 
@@ -127,9 +127,6 @@ int TaskLinkedList::getIndex(RplTask* task){
 	return -1;
 }
 
-// TaskLinkedList::TaskLinkedList(){
-
-// }
 
 void TaskLinkedList::deleteList() {
 	deleteNode(head);
@@ -139,8 +136,9 @@ void TaskLinkedList::deleteList() {
 TaskLinkedList::~TaskLinkedList(){
 	//deleteNode(head); 
 	/*
-	Calling the destructor was giving segfaults in the graph. 
+	Reason for commenting out the destructor: Calling the destructor was giving segfaults in the graph. 
 	Multiple pointers were trying to call the destructor on the same items, which were already deleted. 
+	Now the Graph destructor instead cleans up all dynamically allocated memory at the end of its lifespan. 
 	*/
 	
 	

@@ -3,14 +3,14 @@
 
 struct Graph{
 	public:
-		TaskLinkedList labels; // Adjacency list
-		TaskLinkedList temporaryMarks; //Leave empty b4 topo-sort // pre order
-		TaskLinkedList permanentMarks; //Leave empty b4 topo-sort // post order
+		TaskLinkedList labels; // Adjacency list. All elements will be deleted by the destructor. 
+		TaskLinkedList temporaryMarks; //Leave empty b4 topo-sort (preorder)
+		TaskLinkedList permanentMarks; //Leave empty b4 topo-sort (postorder)
 		int size; //num nodes
-		TaskLinkedList* graph;
-		~Graph() ;
+		TaskLinkedList* graph; 
+		~Graph() ; // Delete dynamically allocated elements in the adjacency list. 
 };
 
-TaskLinkedList topologicalSort(Graph & graph);
+TaskLinkedList topologicalSort(Graph &graph);
 void visit(RplTask* task, Graph &graph, TaskLinkedList * outputReverse);
 

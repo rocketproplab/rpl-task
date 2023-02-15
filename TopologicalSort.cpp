@@ -3,7 +3,6 @@
 
 Graph::~Graph() {
 	labels.deleteList() ; 
-
 }
 
 TaskLinkedList topologicalSort(Graph & graph){
@@ -55,8 +54,9 @@ void visit(RplTask* task, Graph & graph, TaskLinkedList* outputReverse){
 	}
 
 	/*
-	Instead of deleting the RPLTask, which was causing SEG issues since other items were pointing at it ,
+	Instead of deleting the RPLTask, which was causing Segfault issues since other items were pointing at it ,
 	creating a new function which simply removed it from the Linked List w/o deleting the task off the heap.
+	All items are deleted by the destructor of the Graph function, which deletes all items in labels. 
 	*/
 	graph.temporaryMarks.removeTask(task) ; 
 
