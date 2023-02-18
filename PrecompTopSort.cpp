@@ -30,13 +30,15 @@ int main(int argc, char** argv){
 		taskPaths.push_back(argv[i]);
 	}
 
-	for(string path : taskPaths){
-		vector<string> dependencies = getDependencies(path);
-		//TODO Make graph data structure:
+	Graph graph;
 
+	for(string path : taskPaths){
+		string taskName = getTaskName(path);
+		vector<string> dependencies = getDependencies(path);
+		graph[taskName] = dependencies;
 	}
 
-	vector<string> sorted = topologicalSort();//TODO
+	vector<string> sorted = topologicalSort(graph);
 
 	outputWithOutputStrategy(sorted);	
 	return 0;
@@ -47,7 +49,7 @@ vector<string> getDependencies(string path){
 }
 
 
-vector<string> topologicalSort(){
+vector<string> topologicalSort(Graph & g){
 	//TODO	
 }
 
