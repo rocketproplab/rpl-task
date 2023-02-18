@@ -11,6 +11,15 @@ public:
 		Node() : next(nullptr), value(nullptr){}
 	};
 	
+
+	/*
+	Delete the entire list only once. Must be explicity called to prevent memory leaks.
+	Useful because this should prevent the SEGFAULTS of multiple items calling to delete the same node
+	that was happen when multiple items were pointing to the same LL nodes and then the destructor was called. 
+	
+	*/
+void deleteList() ;
+
 	/**
 	* Returns the size of the linked list
 	*/
@@ -39,6 +48,12 @@ public:
 	* Gets the index of an element (-1) if doesn't exist
 	*/
 	int getIndex(RplTask* task);
+
+	/*
+	Removes from linked list, but does NOT delete the RplTask object.
+	Useful for the TopologicalSort and topology
+	*/
+	void removeTask(RplTask * task) ;
 
 
 	/**

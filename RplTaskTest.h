@@ -1,6 +1,6 @@
 class TestTask : public RplTask {
 	public:
-		int i = 0;
+		int i = 0; //tests if each method runs
 	protected:
 		void onStart() {i = 1;};
 		void onResume() {i = 2;};

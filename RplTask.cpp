@@ -1,7 +1,7 @@
 #include "RplTask.h"
 
 RplTask::~RplTask() {
-	//delete dependList;
+	//dependList.deleteList();
 }
 
 TaskStatus RplTask::getStatus() {
@@ -43,9 +43,6 @@ void RplTask::resume() {
 }
 
 void RplTask::process(float deltaTime) { //do stuff for task each loop
-	//if (status == CREATED) {
-	//	//do nothing
-	//}
 	if (status == STARTING) {
 		onStart();
 		status = RUNNING;
@@ -61,7 +58,4 @@ void RplTask::process(float deltaTime) { //do stuff for task each loop
 		onResume();
 		status = RUNNING;
 	}
-	//if (status == STOPPED) {
-	//	//do nothing
-	//}
 }
