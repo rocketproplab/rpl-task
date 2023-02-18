@@ -49,6 +49,11 @@ vector<string> getDependencies(string path){
 }
 
 
+getTaskName(string path){
+	//TODO
+}
+
+
 vector<string> topologicalSort(Graph & g){
 	//TODO	
 }
