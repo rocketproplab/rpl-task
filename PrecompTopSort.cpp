@@ -1,9 +1,7 @@
-<<<<<<< HEAD
 #include "PrecompTopSort.h"
 #include <tuple>
 #include <regex>
 #include <fstream>
-=======
 #include <iostream>
 #include <vector>
 #include "RplTask.h"
@@ -13,7 +11,6 @@
 #include "PrecompTopSort.h"
 #include <unordered_set>
 
->>>>>>> e9851426febb2885af1a695d94305f53ecf65946
 using namespace std;
 
 //Current syntax for header comment:
