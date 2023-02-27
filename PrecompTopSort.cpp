@@ -29,25 +29,14 @@ END-HEADER
 int main(int argc, char** argv){
 	string contents=getFileContents("/Users/abauer/Documents/GitHub/rpl-task/LinkedListTest.h");
 	string taskName = getTaskName(contents);
-	cout << taskName << endl;
+	
 	vector<string> dependencies = getDependencies(contents) ; 
 
-	//cout << "File contents: " << endl ; 
-	//cout << contents << endl ; 
+	cout << taskName << " is dependent on: " << endl ; 
+	for (auto i : dependencies) {
+		cout << i << endl ; 
+	}
 
-	//cout << "Searching for RPL-TASK-DEPENDENCIES : " << contents.find("RPL-TASK-DEPENDENCIES") << endl ;
-
-	/*
-	string rpl= "RPL-TASK-DEPENDENCIES" ;
-	int rplSize = rpl.size() + 1; 
-	string delimiter = "\n" ;
-
-	string after = contents.substr(32 + rplSize);
-
-	cout << "First newline: " << after.find('\n') << endl ; 
-
-	cout << "Contents after: " << after.substr(0, after.find("\n")) << endl ; 
-	*/ 
 /*
 	
 	if(argc == 0){
