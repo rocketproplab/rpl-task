@@ -20,7 +20,7 @@ using namespace std;
 */
 
 class ArduinoStrategyPattern : public iOutputStrategyPattern{
-	void output(vector<string> list){
+	void output(vector<Task> list){
 			
 	}
 };
