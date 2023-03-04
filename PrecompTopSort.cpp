@@ -16,6 +16,7 @@ using namespace std;
 /*
 RPL-TASK-HEADER
 CLASS: Task3
+START-ON-STARTUP: TRUE/FALSE
 RPL-TASK-DEPENDENCIES
 Task1
 Task2
@@ -104,6 +105,23 @@ string getTaskName(string contents){
 	string taskName = classMatch[0];
 	taskName = taskName.substr(taskName.find(" ")+1);	
 	return taskName;
+}
+
+bool isTaskStartOnStartUp(string contents){
+	regex expression("RPL-TASK-HEADER(.|\n)*?END-HEADER");
+	smatch match;
+	regex_search(contents, match, expression);
+	string header = match[0];
+	regex startExpression("START-ON-STARTUP:.*");
+	smatch startMatch;
+	regex_search(header, startMatch, startExpression);
+	string startStatus = startMatch[0];
+	startStatus = startStatus.substr(startStatus.find(" ")+1);	
+	if(startStatus == "TRUE"){
+		return true;
+	}else{
+		return false;
+	}
 }
 
 vector<string> topologicalSort(Graph & g){

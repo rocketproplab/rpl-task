@@ -9,6 +9,7 @@ using namespace std;
 typedef unordered_map<string, vector<string>> Graph;
 vector<string> topologicalSort(Graph & g);
 string getTaskName(string contents);
+bool isTastStartOnStartUp(string contents);
 string getFileContents(string path);
 vector<string> getDependencies(string fileContents); // Reads in from the path and outputs the dependencies 
 vector<string> topologicalSort(Graph & g); // Needs to be implemented similarish to old one
