@@ -16,19 +16,17 @@ using namespace std;
 /*
 RPL-TASK-HEADER
 CLASS: Task3
-START-ON-STARTUP: TRUE/FALSE
-RPL-TASK-DEPENDENCIES
+START-ON-BOOT: TRUE/FALSE
+TASK-DEPENDENCIES
 Task1
 Task2
 END-TASK-DEPENDENCIES
-END-HEADER
+END-RPL-TASK-HEADER
 */
 
 
 
 int main(int argc, char** argv){
-
-	
 	if(argc == 0){
 		return 1;
 	}
@@ -39,19 +37,31 @@ int main(int argc, char** argv){
 	}
 
 	Graph graph;
-
+	unordered_map<string, Task> taskMap;
 
 	for(string path : taskPaths){
 		string contents=getFileContents(path);
 		string taskName = getTaskName(contents);
+		bool isStart = isTaskStartOnBoot(contents);
 		vector<string> dependencies = getDependencies(contents);
+
+		Task task;
+		task.className = taskName;
+		task.startOnBoot = isStart;
+
 		graph[taskName] = dependencies;
+		taskMap[taskName] = task;
 	}
 
 	vector<string> sorted  = topologicalSort(graph);
+	vector<Task> sortedTasks;
+
+	for(string str : sorted){
+		sortedTasks.push_back(taskMap[str]);
+	}
 
 	iOutputStrategyPattern pattern;
-	outputWithOutputStrategy(sorted, pattern);	
+	outputWithOutputStrategy(sortedTasks, pattern);	
 	return 0;
 }
 
@@ -78,7 +88,7 @@ string getFileContents(string path){
 vector<string> getDependencies(string fileContents){	
 	vector<string> dependencies;
 
-	string rplString= "RPL-TASK-DEPENDENCIES" ;
+	string rplString= "TASK-DEPENDENCIES" ;
 	int rplSize = rplString.size() + 1; 
 	int startIndex = fileContents.find(rplString) + rplSize;
 
@@ -95,7 +105,7 @@ vector<string> getDependencies(string fileContents){
 }
 
 string getTaskName(string contents){
-	regex expression("RPL-TASK-HEADER(.|\n)*?END-HEADER");
+	regex expression("RPL-TASK-HEADER(.|\n)*?END-RPL-TASK-HEADER");
 	smatch match;
 	regex_search(contents, match, expression);
 	string header = match[0];
@@ -107,12 +117,12 @@ string getTaskName(string contents){
 	return taskName;
 }
 
-bool isTaskStartOnStartUp(string contents){
-	regex expression("RPL-TASK-HEADER(.|\n)*?END-HEADER");
+bool isTaskStartOnBoot(string contents){
+	regex expression("RPL-TASK-HEADER(.|\n)*?END-RPL-TASK-HEADER");
 	smatch match;
 	regex_search(contents, match, expression);
 	string header = match[0];
-	regex startExpression("START-ON-STARTUP:.*");
+	regex startExpression("START-ON-BOOT:.*");
 	smatch startMatch;
 	regex_search(header, startMatch, startExpression);
 	string startStatus = startMatch[0];
@@ -161,6 +171,6 @@ void visit(string task, unordered_set<string> & temporaryMarks, unordered_set<st
 	topologicalOrder.push_back(task);
 }
 
-void outputWithOutputStrategy(vector<string> & sorted, iOutputStrategyPattern pattern){
+void outputWithOutputStrategy(vector<Task> & sorted, iOutputStrategyPattern pattern){
 	pattern.output(sorted);
 }

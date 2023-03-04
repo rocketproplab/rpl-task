@@ -3,12 +3,17 @@
 
 using namespace std;
 
+struct Task{
+	string className;
+	bool startOnBoot;
+};
+
 
 class iOutputStrategyPattern{
 public:
-	virtual void output(vector<string> list){
-		for(string i : list){
-			cout << i << endl;
+	virtual void output(vector<Task> list){
+		for(Task i : list){
+			cout << i.className << " " << i.startOnBoot << endl;
 		}
 	}
 };
