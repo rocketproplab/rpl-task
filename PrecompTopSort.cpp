@@ -1,4 +1,3 @@
-#include "PrecompTopSort.h"
 #include <tuple>
 #include <regex>
 #include <fstream>
@@ -27,24 +26,14 @@ END-HEADER
 
 
 int main(int argc, char** argv){
-	string contents=getFileContents("/Users/abauer/Documents/GitHub/rpl-task/LinkedListTest.h");
-	string taskName = getTaskName(contents);
-	
-	vector<string> dependencies = getDependencies(contents) ; 
 
-	cout << taskName << " is dependent on: " << endl ; 
-	for (auto i : dependencies) {
-		cout << i << endl ; 
-	}
-
-/*
 	
 	if(argc == 0){
 		return 1;
 	}
 
 	vector<string> taskPaths;
-	for(int i = 0; i < argc; ++i){
+	for(int i = 1; i < argc; ++i){
 		taskPaths.push_back(argv[i]);
 	}
 
@@ -52,17 +41,17 @@ int main(int argc, char** argv){
 
 
 	for(string path : taskPaths){
-		string taskName = getTaskName(path);
-		vector<string> dependencies = getDependencies(path);
+		string contents=getFileContents(path);
+		string taskName = getTaskName(contents);
+		vector<string> dependencies = getDependencies(contents);
 		graph[taskName] = dependencies;
 	}
 
 	vector<string> sorted  = topologicalSort(graph);
 
-
-	outputWithOutputStrategy(sorted);	
+	iOutputStrategyPattern pattern;
+	outputWithOutputStrategy(sorted, pattern);	
 	return 0;
-*/
 }
 
 
@@ -105,7 +94,6 @@ vector<string> getDependencies(string fileContents){
 }
 
 string getTaskName(string contents){
-	//regex expression("(?<=RPL\\-TASK\\-HEADER)(.|\\s)*(?=END\\-HEADER)");
 	regex expression("RPL-TASK-HEADER(.|\n)*?END-HEADER");
 	smatch match;
 	regex_search(contents, match, expression);
@@ -119,16 +107,16 @@ string getTaskName(string contents){
 }
 
 vector<string> topologicalSort(Graph & g){
-
 	vector<string> topologicalOrdering;
 	unordered_set<string> permanentMarks; 
 	unordered_set<string> temporaryMarks; 
-	
 	
 
 	for (auto element: g) {
 		visit(element.first,temporaryMarks,permanentMarks,topologicalOrdering,g);
 	}
+
+		
 
 	return topologicalOrdering; 
 }
@@ -152,11 +140,9 @@ void visit(string task, unordered_set<string> & temporaryMarks, unordered_set<st
 	temporaryMarks.erase(task);
 	permanentMarks.insert(task);
 
-	topologicalOrder.insert(topologicalOrder.begin(),task);
-
-
+	topologicalOrder.push_back(task);
 }
 
-void outputWithOutputStrategy(vector<string> & sorted){
-	//TODO	
+void outputWithOutputStrategy(vector<string> & sorted, iOutputStrategyPattern pattern){
+	pattern.output(sorted);
 }
