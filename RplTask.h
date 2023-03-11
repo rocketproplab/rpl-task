@@ -9,6 +9,7 @@ protected:
     virtual void onResume() {}; // Children implement for handling resume
     virtual void onPause() {}; // Children implement for handling pause
     virtual void onLoop() {}; // Children implement for handling loop
+    virtual void init(RplTask** tasks, int taskCount) {};
 public:
     TaskStatus status;
     TaskLinkedList dependList;

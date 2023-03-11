@@ -47,6 +47,10 @@ class ArduinoStrategyPattern : public iOutputStrategyPattern{
 		file_output += "const int taskCount = " + to_string(variableNames.size()) + ";\n";
 		file_output += "\n";
 		file_output += "void setup(){\n";
+		for(string s : variableNames){
+			file_output += "\t" + s + ".init(&tasks, taskCount);\n";
+		}
+		file_output += "\n";
 		for(int i = 0; i < variableNames.size(); ++i){
 			if(list[i].startOnBoot){
 				file_output += "\t" + variableNames[i] + ".start();\n";
