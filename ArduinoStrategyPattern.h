@@ -1,5 +1,6 @@
 #include "iOutputStrategyPattern.h"
 #include <cctype>
+#include <fstream>
 
 #pragma once
 
@@ -23,7 +24,7 @@ using namespace std;
 */
 
 class ArduinoStrategyPattern : public iOutputStrategyPattern{
-	void output(vector<Task> list){
+	string output(vector<Task> list){
 		string file_output = "";
 		vector<string> variableNames;
 		for(Task task : list){
@@ -68,5 +69,6 @@ class ArduinoStrategyPattern : public iOutputStrategyPattern{
 		inoFile << file_output << endl;
 		inoFile.close();
 		cout << file_output << endl;
+		return file_output;
 	}
 };

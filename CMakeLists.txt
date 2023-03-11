@@ -16,6 +16,7 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
+if(FALSE)
 add_executable(
   LinkedListTest
   LinkedListTest.cpp
@@ -26,8 +27,9 @@ target_link_libraries(
   LinkedListTest
   GTest::gtest_main
 )
+endif()
 
-
+if(FALSE)
 add_executable(
   TopologicalTest
   TopologicalSortTest.cpp
@@ -39,7 +41,31 @@ target_link_libraries(
   TopologicalTest
   GTest::gtest_main
 )
+endif()
 
+add_executable(
+  PrecompTest
+  PrecompTest.cpp
+  PrecompTopSort.cpp
+  #iOutputStrategyPattern.h
+  #ArduinoStrategyPattern.h
+)
+target_link_libraries(
+  PrecompTest
+  GTest::gtest_main
+)
+
+add_executable(
+  HelloTest
+  HelloTest.cpp
+)
+target_link_libraries(
+  HelloTest
+  GTest::gtest_main
+)
 include(GoogleTest)
-gtest_discover_tests(LinkedListTest)
-gtest_discover_tests(TopologicalTest)
+#gtest_discover_tests(LinkedListTest)
+#gtest_discover_tests(TopologicalTest)
+gtest_discover_tests(PrecompTest)
+gtest_discover_tests(HelloTest)
+

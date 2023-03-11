@@ -11,9 +11,12 @@ struct Task{
 
 class iOutputStrategyPattern{
 public:
-	virtual void output(vector<Task> list){
+	virtual string output(vector<Task> list){
+		string out = "";
 		for(Task i : list){
 			cout << i.className << " " << i.startOnBoot << endl;
+			out += i.className + " " + to_string(i.startOnBoot) + "\n";
 		}
+		return out;
 	}
 };
