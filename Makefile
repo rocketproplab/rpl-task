@@ -15,4 +15,5 @@ precomp_test:
 precomp_clean: PrecompTopSort.cpp PrecompTopSort.h
 	rm -r Precomp.dSYM
 	rm Precomp
+	rm main.ino
 	

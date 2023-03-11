@@ -60,8 +60,9 @@ int main(int argc, char** argv){
 		sortedTasks.push_back(taskMap[str]);
 	}
 
-	iOutputStrategyPattern pattern;
-	outputWithOutputStrategy(sortedTasks, pattern);	
+	//iOutputStrategyPattern pattern;
+	ArduinoStrategyPattern pattern;
+	outputWithOutputStrategy(sortedTasks, &pattern);	
 	return 0;
 }
 
@@ -171,6 +172,6 @@ void visit(string task, unordered_set<string> & temporaryMarks, unordered_set<st
 	topologicalOrder.push_back(task);
 }
 
-void outputWithOutputStrategy(vector<Task> & sorted, iOutputStrategyPattern pattern){
-	pattern.output(sorted);
+void outputWithOutputStrategy(vector<Task> & sorted, iOutputStrategyPattern* pattern){
+	pattern->output(sorted);
 }
