@@ -49,14 +49,14 @@ class ArduinoStrategyPattern : public iOutputStrategyPattern{
 		file_output += "void setup(){\n";
 		for(int i = 0; i < variableNames.size(); ++i){
 			if(list[i].startOnBoot){
-				file_output += "\t" + variableNames[i] + "->start();\n";
+				file_output += "\t" + variableNames[i] + ".start();\n";
 			}
 		}
 		file_output += "}\n";
 		file_output += "\n";
 		file_output += "void loop(){\n";
 		for(string s : variableNames){
-			file_output += "\t" + s + "->process();\n";
+			file_output += "\t" + s + ".process();\n";
 		}
 		file_output += "}";
 		ofstream inoFile;
