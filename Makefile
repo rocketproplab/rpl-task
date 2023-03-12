@@ -1,6 +1,7 @@
 test:
 	cmake -S . -B build
 	cmake --build build
+	cp -r TestTaskFolder build
 	cd build && ctest && cd ..
 
 clean: 

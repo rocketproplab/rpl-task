@@ -1,20 +1,17 @@
 #include <gtest/gtest.h>
 #include "PrecompTopSort.h"
+
 using namespace std;
 
 
-TEST(HelloTest, Hello){
-	EXPECT_EQ(true, true);
+TEST(GetFileContentsTest, FileContents){
+	string path = "TestTaskFolder/Task1.h";
+	string output = getFileContents(path);
+
+	string expected = "/*\nRPL-TASK-HEADER\nCLASS: Task1\nSTART-ON-BOOT: TRUE\nTASK-DEPENDENCIES\nTask2\nTask3\nEND-TASK-DEPENDENCIES\nEND-RPL-TASK-HEADER\n*/\n\nclass Task1{\n\n};\n";
+	EXPECT_EQ(output, expected) << "Got:\n" << output << "\nExpected:\n" << expected;
 }
 
-//TEST(GetFileContentsTest, FileContents){
-	//string path = "TestTaskFolder/Task1.h";
-	//string output = getFileContents(path);
-
-	//string expected = "/*\nRPL-TASK-HEADER\nCLASS: Task1\nSTART-ON-BOOT: TRUE\nTASK-DEPENDENCIES\nTask2\nTask3\nEND-TASK-DEPENDENCIES\nEND-RPL-TASK-HEADER\n*/\n\nclass Task1 {\n\n};";
-	//EXPECT_EQ(output, expected); //<< "Got:\n" << output << "\nExpected:\n" << expected;
-//}
-/*
 TEST(GetTaskNameTest, TaskName){
 	string path = "TestTaskFolder/Task2.h";
 	string contents = getFileContents(path);
@@ -23,7 +20,7 @@ TEST(GetTaskNameTest, TaskName){
 	string expected = "Task2";
 	
 	//EXPECT_EQ(output, expected) << "Got:\n" << output << "\nExpected:\n" << expected;
-	EXPECT_EQ(output, expected); //<< "Got:\n" << output << "\nExpected:\n" << expected;
+	EXPECT_EQ(output, expected) << "Got:\n" << output << "\nExpected:\n" << expected;
 }
 
 TEST(IsStartOnBootTest, TrueTest){
@@ -47,8 +44,7 @@ TEST(IsStartOnBootTest, FalseTest){
 	//EXPECT_EQ(output, expected) << "Got:\n" << output << "\nExpected:\n" << expected;
 	EXPECT_EQ(output, expected); //<< "Got:\n" << output << "\nExpected:\n" << expected;
 }
-*/
-/*
+
 TEST(GetDependenciesTest, NoDependencies){
 	string path = "TestTaskFolder/Task3.h";
 	string contents = getFileContents(path);
@@ -77,7 +73,7 @@ TEST(GetDependenciesTest, OneDependency){
 }
 
 TEST(GetDependenciesTest, MultipleDependencies){
-	string path = "TestTaskFolder/Task4.h";
+	string path = "TestTaskFolder/Task1.h";
 	string contents = getFileContents(path);
 
 	vector<string> output = getDependencies(contents);
@@ -90,4 +86,3 @@ TEST(GetDependenciesTest, MultipleDependencies){
 		EXPECT_EQ(output[i], expected[i]);// << "Got:\n" << output[i] << "\nExpected:\n" << expected[i];
 	}
 }
-*/

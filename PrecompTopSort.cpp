@@ -15,10 +15,9 @@ END-TASK-DEPENDENCIES
 END-RPL-TASK-HEADER
 */
 
-
-
+/*
 int main(int argc, char** argv){
-	if(argc == 0){
+	if(argc <= 1){
 		return 1;
 	}
 
@@ -56,8 +55,7 @@ int main(int argc, char** argv){
 	outputWithOutputStrategy(sortedTasks, &pattern);	
 	return 0;
 }
-
-
+*/
 
 string getFileContents(string path){
 	string output;

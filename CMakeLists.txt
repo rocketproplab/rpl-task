@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(rpl-task)
 
 # GoogleTest requires at least C++14
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 11)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -16,7 +16,6 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-if(FALSE)
 add_executable(
   LinkedListTest
   LinkedListTest.cpp
@@ -27,9 +26,7 @@ target_link_libraries(
   LinkedListTest
   GTest::gtest_main
 )
-endif()
 
-if(FALSE)
 add_executable(
   TopologicalTest
   TopologicalSortTest.cpp
@@ -41,17 +38,15 @@ target_link_libraries(
   TopologicalTest
   GTest::gtest_main
 )
-endif()
 
 add_executable(
-  PrecompTest
+  PrecompTesting
   PrecompTest.cpp
   PrecompTopSort.cpp
-  #iOutputStrategyPattern.h
-  #ArduinoStrategyPattern.h
+  TestTaskFolder
 )
 target_link_libraries(
-  PrecompTest
+  PrecompTesting
   GTest::gtest_main
 )
 
@@ -66,6 +61,6 @@ target_link_libraries(
 include(GoogleTest)
 #gtest_discover_tests(LinkedListTest)
 #gtest_discover_tests(TopologicalTest)
-gtest_discover_tests(PrecompTest)
-gtest_discover_tests(HelloTest)
+gtest_discover_tests(PrecompTesting)
+#gtest_discover_tests(HelloTest)
 
