@@ -18,6 +18,7 @@ END-RPL-TASK-HEADER
 /*
 int main(int argc, char** argv){
 	if(argc <= 1){
+		cout << "Wrong number of inputs" << endl;
 		return 1;
 	}
 
