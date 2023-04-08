@@ -120,6 +120,6 @@ void visit(string task, unordered_set<string> & temporaryMarks, unordered_set<st
 	topologicalOrder.push_back(task);
 }
 
-void outputWithOutputStrategy(vector<Task> & sorted, iOutputStrategyPattern* pattern){
+void outputWithOutputStrategy(vector<Task> & sorted, IOutputStrategyPattern* pattern){
 	pattern->output(sorted);
 }

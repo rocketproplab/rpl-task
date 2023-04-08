@@ -1,4 +1,4 @@
-#include "iOutputStrategyPattern.h"
+#include "IOutputStrategyPattern.h"
 #include <cctype>
 #include <fstream>
 
@@ -23,7 +23,7 @@ using namespace std;
 	}
 */
 
-class ArduinoStrategyPattern : public iOutputStrategyPattern{
+class ArduinoStrategyPattern : public IOutputStrategyPattern{
 	string output(vector<Task> list){
 		string file_output = "";
 		vector<string> variableNames;
