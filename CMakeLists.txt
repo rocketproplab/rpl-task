@@ -17,17 +17,6 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 add_executable(
-  LinkedListTest
-  LinkedListTest.cpp
-  RplTask.cpp
-  TaskLinkedList.cpp
-)
-target_link_libraries(
-  LinkedListTest
-  GTest::gtest_main
-)
-
-add_executable(
   PrecompTesting
   PrecompTest.cpp
   PrecompTopSort.cpp
@@ -38,8 +27,5 @@ target_link_libraries(
   GTest::gtest_main
 )
 include(GoogleTest)
-#gtest_discover_tests(LinkedListTest)
-#gtest_discover_tests(TopologicalTest)
 gtest_discover_tests(PrecompTesting)
-#gtest_discover_tests(HelloTest)
 
