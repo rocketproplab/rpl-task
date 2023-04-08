@@ -19,13 +19,15 @@ enable_testing()
 add_executable(
   PrecompTesting
   PrecompTest.cpp
-  PrecompTopSort.cpp
+  PrecompilationCode/PrecompTopSort.cpp
   TestTaskFolder
 )
 target_link_libraries(
   PrecompTesting
   GTest::gtest_main
 )
+
+#PrecompilationCode/PrecompTopSort.cpp
 include(GoogleTest)
 gtest_discover_tests(PrecompTesting)
 

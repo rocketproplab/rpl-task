@@ -8,7 +8,7 @@ clean:
 	rm -r build
 
 precomp:
-	g++ -Wall -pedantic -g -O0 -std=c++11 -o RplTaskMainBuild RplTaskMainBuild.cpp PrecompTopSort.cpp
+	g++ -Wall -pedantic -g -O0 -std=c++11 -o RplTaskMainBuild RplTaskMainBuild.cpp PrecompilationCode/PrecompTopSort.cpp
 
 precomp_test:
 	./RplTaskMainBuild TestTaskFolder/Task1.h TestTaskFolder/Task2.h TestTaskFolder/Task3.h TestTaskFolder/Task4.h
