@@ -49,15 +49,6 @@ target_link_libraries(
   PrecompTesting
   GTest::gtest_main
 )
-
-add_executable(
-  HelloTest
-  HelloTest.cpp
-)
-target_link_libraries(
-  HelloTest
-  GTest::gtest_main
-)
 include(GoogleTest)
 #gtest_discover_tests(LinkedListTest)
 #gtest_discover_tests(TopologicalTest)
