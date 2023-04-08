@@ -9,7 +9,7 @@ struct Task{
 };
 
 
-class iOutputStrategyPattern{
+class IOutputStrategyPattern{
 public:
 	virtual string output(vector<Task> list){
 		string out = "";
