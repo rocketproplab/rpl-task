@@ -28,18 +28,6 @@ target_link_libraries(
 )
 
 add_executable(
-  TopologicalTest
-  TopologicalSortTest.cpp
-  RplTask.cpp
-  TaskLinkedList.cpp
-  TopologicalSort.cpp
-)
-target_link_libraries(
-  TopologicalTest
-  GTest::gtest_main
-)
-
-add_executable(
   PrecompTesting
   PrecompTest.cpp
   PrecompTopSort.cpp
