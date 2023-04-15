@@ -12,7 +12,6 @@ protected:
     virtual void init(RplTask** tasks, int taskCount) {};
 public:
     TaskStatus status;
-    TaskLinkedList dependList;
     /*
         Starts this task.
     */
@@ -45,9 +44,7 @@ public:
         the most recent loop.
     */
     TaskStatus getStatus();
-    void addDepend(RplTask* newDepend);
-    bool checkDepend();
     void resume();
-    RplTask() : status(CREATED), dependList(TaskLinkedList()) {};
+    RplTask() : status(CREATED) {};
     ~RplTask();
 };
