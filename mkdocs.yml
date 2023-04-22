@@ -1,6 +1,7 @@
 site_name: RPL Task Documentation
 theme:
-  logo: logo3.png
+  logo: assets/logo3.png
+  favicon: assets/favicon.ico
   name: material
   language: en
   features: 

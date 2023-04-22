@@ -1,0 +1,1 @@
+# iOutputStrategy.h
