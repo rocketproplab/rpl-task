@@ -7,7 +7,8 @@ int main(int argc, char** argv){
 		cout << "Wrong number of inputs" << endl;
 		return 1;
 	}
-
+	
+	//Get all task files to sort
 	vector<string> taskPaths;
 	for(int i = 1; i < argc; ++i){
 		taskPaths.push_back(argv[i]);
@@ -16,6 +17,7 @@ int main(int argc, char** argv){
 	Graph graph;
 	unordered_map<string, Task> taskMap;
 
+	//Construct graph
 	for(string path : taskPaths){
 		string contents=getFileContents(path);
 		string taskName = getTaskName(contents);
@@ -29,15 +31,16 @@ int main(int argc, char** argv){
 		graph[taskName] = dependencies;
 		taskMap[taskName] = task;
 	}
-
+	
+	//Sort Tasks
 	vector<string> sorted  = topologicalSort(graph);
 	vector<Task> sortedTasks;
 
 	for(string str : sorted){
 		sortedTasks.push_back(taskMap[str]);
 	}
-
-	//iOutputStrategyPattern pattern;
+	
+	//Use output strategy to create code
 	ArduinoStrategyPattern pattern;
 	outputWithOutputStrategy(sortedTasks, &pattern);	
 	return 0;
