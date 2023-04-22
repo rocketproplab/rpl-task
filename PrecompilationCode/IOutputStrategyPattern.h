@@ -11,6 +11,9 @@ struct Task{
 
 class IOutputStrategyPattern{
 public:
+	/**
+	* Basic output strategy that just prints basic items of the task header
+	*/
 	virtual string output(vector<Task> list){
 		string out = "";
 		for(Task i : list){

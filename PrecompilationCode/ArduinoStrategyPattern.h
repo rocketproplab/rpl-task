@@ -5,6 +5,7 @@
 #pragma once
 
 using namespace std;
+//Basic idea of generated code
 /*
 	static Task1 task1;
 	static Task2 task2;
@@ -23,6 +24,10 @@ using namespace std;
 	}
 */
 
+/**
+* Arduino Strategy pattern which when given a sorted list of tasks it
+* produces the code above and places the result in a created main.ino
+*/
 class ArduinoStrategyPattern : public IOutputStrategyPattern{
 	string output(vector<Task> list){
 		string file_output = "";
