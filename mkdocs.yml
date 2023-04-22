@@ -1,5 +1,6 @@
 site_name: RPL Task Documentation
 theme:
+  logo: logo3.png
   name: material
   language: en
   features: 
