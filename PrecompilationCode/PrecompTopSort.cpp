@@ -15,11 +15,16 @@ END-TASK-DEPENDENCIES
 END-RPL-TASK-HEADER
 */
 
-
+/**
+* Gets the contents of a file at specified path by reading 
+* lines until there are none left
+*/
 string getFileContents(string path){
 	string output;
 	bool flag = true;
 	ifstream file(path);
+
+	//Read lines from file until there aren't any left
 	if(file.is_open()){
 		string line;
 		while(file){
@@ -34,6 +39,11 @@ string getFileContents(string path){
 	return output;
 }
 
+/**
+* Gets the dependency list of the task
+* Does this via seeing what is between the two tags and 
+* placing them in a list
+*/
 vector<string> getDependencies(string fileContents){	
 	vector<string> dependencies;
 
@@ -44,6 +54,7 @@ vector<string> getDependencies(string fileContents){
 	string newString = fileContents.substr(startIndex) ;
 	string line = newString.substr(0,newString.find('\n')) ;
 
+	//Get everything in between the two tags
 	while (line != "END-TASK-DEPENDENCIES") {
 		dependencies.push_back(line) ;
 		newString = newString.substr(newString.find('\n') + 1) ;
@@ -53,6 +64,9 @@ vector<string> getDependencies(string fileContents){
 	return dependencies;
 }
 
+/**
+* Use regex to get the task name setting in the header and returns its value
+*/
 string getTaskName(string contents){
 	regex expression("RPL-TASK-HEADER(.|\n)*?END-RPL-TASK-HEADER");
 	smatch match;
@@ -66,6 +80,9 @@ string getTaskName(string contents){
 	return taskName;
 }
 
+/**
+* Use regex to get the start on boot setting in the header and returns its value
+*/
 bool isTaskStartOnBoot(string contents){
 	regex expression("RPL-TASK-HEADER(.|\n)*?END-RPL-TASK-HEADER");
 	smatch match;
@@ -83,6 +100,11 @@ bool isTaskStartOnBoot(string contents){
 	}
 }
 
+/**
+* Topological sort of a graph via depth first search
+* this functiuon is primarily to keep track of the nodes that have been visited
+* with temp and permanent marks
+*/
 vector<string> topologicalSort(Graph & g){
 	vector<string> topologicalOrdering;
 	unordered_set<string> permanentMarks; 
@@ -98,6 +120,10 @@ vector<string> topologicalSort(Graph & g){
 	return topologicalOrdering; 
 }
 
+/**
+* Subroutine for the topological sort. Preforms a recursive depth first search to get the order of the tasks
+* Throws an error if the graph given has a cycle
+*/
 void visit(string task, unordered_set<string> & temporaryMarks, unordered_set<string> & permanentMarks, vector<string> & topologicalOrder, Graph & g ) {
 
 	if (permanentMarks.find(task) != permanentMarks.end() ) {
@@ -120,6 +146,9 @@ void visit(string task, unordered_set<string> & temporaryMarks, unordered_set<st
 	topologicalOrder.push_back(task);
 }
 
+/**
+* Takes in a sorted list of tasks and applies the specified output strategy to generate code
+*/
 void outputWithOutputStrategy(vector<Task> & sorted, IOutputStrategyPattern* pattern){
 	pattern->output(sorted);
 }
