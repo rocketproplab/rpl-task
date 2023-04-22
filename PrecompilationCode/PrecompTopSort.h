@@ -1,17 +1,9 @@
-//#include "RplTask.h"
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
 #include "ArduinoStrategyPattern.h"
 
-//#include "iOutputStrategyPattern.h"
 using namespace std;
-/*
-struct {
-	string className;
-	bool startOnBoot;
-} Task;
-*/
 
 
 typedef unordered_map<string, vector<string>> Graph;
