@@ -34,17 +34,19 @@ class ArduinoStrategyPattern : public IOutputStrategyPattern{
 		string file_output = "";
 		string header_output ="";
 
+		//Add header
+		file_output += "#include \"main.h\"\n\n";
 
 		//Get Task names
 		vector<string> variableNames;
-		task_index = 0;
+		int task_index = 0;
 		for(Task task : list){
 			string lowerFirst(1, tolower(task.className.at(0)));
 			string variableName = lowerFirst +  task.className.substr(1);
 			variableNames.push_back(variableName);
 			file_output +=  "static " + task.className + " " + variableName + ";\n";
-			header_output += "#DEFINE " + task.className+ "_index " + task_index + ";\n";
-			++index;
+			header_output += "#define " + task.className+ "_INDEX " + to_string(task_index) + ";\n";
+			++task_index;
 		}			
 
 		//Write array to access tasks
@@ -94,7 +96,7 @@ class ArduinoStrategyPattern : public IOutputStrategyPattern{
 
 
 		ofstream headerFile;
-		headerFile.open("main.h";
+		headerFile.open("main.h");
 		headerFile << header_output << endl;
 		headerFile.close();
 		

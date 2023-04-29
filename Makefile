@@ -13,7 +13,7 @@ precomp:
 precomp_test:
 	./RplTaskMainBuild TestTaskFolder/Task1.h TestTaskFolder/Task2.h TestTaskFolder/Task3.h TestTaskFolder/Task4.h
 
-precomp_clean: PrecompTopSort.cpp PrecompTopSort.h
+precomp_clean:
 	rm -r RplTaskMainBuild.dSYM
 	rm RplTaskMainBuild
 	
