@@ -30,14 +30,24 @@ using namespace std;
 */
 class ArduinoStrategyPattern : public IOutputStrategyPattern{
 	string output(vector<Task> list){
+		//Initialize file outputs
 		string file_output = "";
+		string header_output ="";
+
+
+		//Get Task names
 		vector<string> variableNames;
+		task_index = 0;
 		for(Task task : list){
 			string lowerFirst(1, tolower(task.className.at(0)));
 			string variableName = lowerFirst +  task.className.substr(1);
 			variableNames.push_back(variableName);
 			file_output +=  "static " + task.className + " " + variableName + ";\n";
+			header_output += "#DEFINE " + task.className+ "_index " + task_index + ";\n";
+			++index;
 		}			
+
+		//Write array to access tasks
 		file_output += "\n";
 		file_output += "RplTask* tasks[] = {";
 		bool flag = true;
@@ -50,8 +60,12 @@ class ArduinoStrategyPattern : public IOutputStrategyPattern{
 			}
 		}
 		file_output += "};\n";
+
+		//Add # of tasks (needed to access array)
 		file_output += "const int taskCount = " + to_string(variableNames.size()) + ";\n";
 		file_output += "\n";
+
+		//Make setup function to initialize tasks
 		file_output += "void setup(){\n";
 		for(string s : variableNames){
 			file_output += "\t" + s + ".init(&tasks, taskCount);\n";
@@ -64,16 +78,32 @@ class ArduinoStrategyPattern : public IOutputStrategyPattern{
 		}
 		file_output += "}\n";
 		file_output += "\n";
+
+		//Make loop function to process tasks that are on at startup
 		file_output += "void loop(){\n";
 		for(string s : variableNames){
 			file_output += "\t" + s + ".process();\n";
 		}
 		file_output += "}";
+
+		//Output to files
 		ofstream inoFile;
 		inoFile.open("main.ino");
 		inoFile << file_output << endl;
 		inoFile.close();
+
+
+		ofstream headerFile;
+		headerFile.open("main.h";
+		headerFile << header_output << endl;
+		headerFile.close();
+		
+		//Print to Console
 		cout << file_output << endl;
-		return file_output;
+		cout << endl;
+		cout << header_output << endl;
+
+		//Return what was written
+		return file_output + "\n" + header_output;
 	}
 };
