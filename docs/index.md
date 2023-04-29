@@ -3,6 +3,10 @@
 Hello! Welcome to the documentation site for RPL-TASK. The purpose of this project to allow for ease of generation of code files involving tasks and the creation of the tasks themselves.
 
 
+## __Setup__
+
+Setup is done in a couple of parts. 
+
 ## __Preliminaries__
 
 ### What is a Task?
