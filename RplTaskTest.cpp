@@ -42,34 +42,6 @@ TEST(statusTest, pauseResume) {
 	EXPECT_EQ(task1->getStatus(), expected) << "RUNNING";
 }
 
-/*
-	start a task with multiple dependencies
-*/
-TEST(dependTest, dependStart) {
-	RplTask* task1 = (RplTask*)new TestTask();
-	EXPECT_EQ(task1->checkDepend(), true);
-
-	RplTask* task2 = (RplTask*)new TestTask();
-	RplTask* task3 = (RplTask*)new TestTask();
-
-	task1->addDepend(task2);
-	task1->addDepend(task3);
-	EXPECT_EQ(task1->checkDepend(), false) << "0 dependencies complete";
-	
-	task2->process(0);
-	task2->pause();
-	task2->process(0);
-
-	task1->start(); //doesn't start because dependencies are incomplete
-	EXPECT_EQ(task1->checkDepend(), false) << "1 dependencies complete";
-
-	task3->process(0);
-	task3->pause();
-	task3->process(0);
-
-	task1->start(); //only starts if dependencies STOPPED
-	EXPECT_EQ(task1->checkDepend(), true) << "all dependencies complete";
-}
 
 /*
 	check onStart runs properly

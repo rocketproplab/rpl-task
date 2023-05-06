@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(rpl-task)
 
 # GoogleTest requires at least C++14
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 11)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -17,26 +17,26 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 add_executable(
-  LinkedListTest
-  LinkedListTest.cpp
-  RplTask.cpp
-  TaskLinkedList.cpp
+  PrecompTesting
+  PrecompTest.cpp
+  PrecompilationCode/PrecompTopSort.cpp
+  TestTaskFolder
 )
 target_link_libraries(
-  LinkedListTest
+  PrecompTesting
   GTest::gtest_main
 )
 add_executable(
   RplTaskTest
   RplTaskTest.cpp
   RplTask.cpp
-  TaskLinkedList.cpp
 )
 target_link_libraries(
   RplTaskTest
   GTest::gtest_main
 )
 
+#PrecompilationCode/PrecompTopSort.cpp
 include(GoogleTest)
-gtest_discover_tests(LinkedListTest)
+gtest_discover_tests(PrecompTesting)
 gtest_discover_tests(RplTaskTest)
