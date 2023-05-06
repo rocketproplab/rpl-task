@@ -49,19 +49,7 @@ class ArduinoStrategyPattern : public IOutputStrategyPattern{
 			++task_index;
 		}			
 
-		//Write array to access tasks
-		file_output += "\n";
-		file_output += "RplTask* tasks[] = {";
-		bool flag = true;
-		for(string s : variableNames){
-			if(flag){
-				file_output += "&" + s;
-				flag = false;
-			}else{
-				file_output += ", &" + s;
-			}
-		}
-		file_output += "};\n";
+		writeTaskArray(&file_output, variableNames);
 
 		//Add # of tasks (needed to access array)
 		file_output += "const int taskCount = " + to_string(variableNames.size()) + ";\n";
@@ -107,5 +95,20 @@ class ArduinoStrategyPattern : public IOutputStrategyPattern{
 
 		//Return what was written
 		return file_output + "\n" + header_output;
+	}
+
+	void writeTaskArray(string *file_output, vector<string> variableNames){
+		*file_output += "\n";
+		*file_output += "RplTask* tasks[] = {";
+		bool flag = true;
+		for(string s : variableNames){
+			if(flag){
+				*file_output += "&" + s;
+				flag = false;
+			}else{
+				*file_output += ", &" + s;
+			}
+		}
+		*file_output += "};\n";
 	}
 };
