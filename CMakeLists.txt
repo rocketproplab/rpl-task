@@ -26,8 +26,17 @@ target_link_libraries(
   PrecompTesting
   GTest::gtest_main
 )
+add_executable(
+  RplTaskTest
+  RplTaskTest.cpp
+  RplTask.cpp
+)
+target_link_libraries(
+  RplTaskTest
+  GTest::gtest_main
+)
 
 #PrecompilationCode/PrecompTopSort.cpp
 include(GoogleTest)
 gtest_discover_tests(PrecompTesting)
-
+gtest_discover_tests(RplTaskTest)

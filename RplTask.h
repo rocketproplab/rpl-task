@@ -1,9 +1,8 @@
-#include "TaskLinkedList.h"
 
-enum TaskStatus { CREATED, STARTING, RUNNING, PAUSING, PAUSED, RESUMING, STOPPED };
+enum TaskStatus { CREATED, STARTING, RUNNING, PAUSING, STOPPED, RESUMING};
 class RplTask {
-//private:
-//    // Variables that make sense here
+private:
+
 protected:
     virtual void onStart() {}; // Children implement for first-time start behavior.
     virtual void onResume() {}; // Children implement for handling resume
