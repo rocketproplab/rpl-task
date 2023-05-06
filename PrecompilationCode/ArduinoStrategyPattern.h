@@ -34,67 +34,54 @@ class ArduinoStrategyPattern : public IOutputStrategyPattern{
 		string file_output = "";
 		string header_output ="";
 
-		//Add header
 		file_output += "#include \"main.h\"\n\n";
 
-		//Get Task names
-		vector<string> variableNames;
-		int task_index = 0;
-		for(Task task : list){
-			string lowerFirst(1, tolower(task.className.at(0)));
-			string variableName = lowerFirst +  task.className.substr(1);
-			variableNames.push_back(variableName);
-			file_output +=  "static " + task.className + " " + variableName + ";\n";
-			header_output += "#define " + task.className+ "_INDEX " + to_string(task_index) + ";\n";
-			++task_index;
-		}			
+		vector<string> variableNames = getVariableNames(list);
 
+		writeHeaderDefs(&header_output, list);
+		writeTaskVariableNames(&file_output, list, variableNames);
 		writeTaskArray(&file_output, variableNames);
+		writeSetupFunc(&file_output, variableNames, list);
+		writeLoopFunc(&file_output, variableNames);
 
-		//Add # of tasks (needed to access array)
-		file_output += "const int taskCount = " + to_string(variableNames.size()) + ";\n";
-		file_output += "\n";
-
-		//Make setup function to initialize tasks
-		file_output += "void setup(){\n";
-		for(string s : variableNames){
-			file_output += "\t" + s + ".init(&tasks, taskCount);\n";
-		}
-		file_output += "\n";
-		for(int i = 0; i < variableNames.size(); ++i){
-			if(list[i].startOnBoot){
-				file_output += "\t" + variableNames[i] + ".start();\n";
-			}
-		}
-		file_output += "}\n";
-		file_output += "\n";
-
-		//Make loop function to process tasks that are on at startup
-		file_output += "void loop(){\n";
-		for(string s : variableNames){
-			file_output += "\t" + s + ".process();\n";
-		}
-		file_output += "}";
-
-		//Output to files
+		//Output to files + print to console
 		ofstream inoFile;
 		inoFile.open("main.ino");
 		inoFile << file_output << endl;
 		inoFile.close();
-
 
 		ofstream headerFile;
 		headerFile.open("main.h");
 		headerFile << header_output << endl;
 		headerFile.close();
 		
-		//Print to Console
 		cout << file_output << endl;
 		cout << endl;
 		cout << header_output << endl;
 
-		//Return what was written
 		return file_output + "\n" + header_output;
+	}
+	
+	vector<string> getVariableNames(vector<Task> list){
+		vector<string> variableNames;
+		for(Task task : list){
+			string lowerFirst(1, tolower(task.className.at(0)));
+			string variableName = lowerFirst +  task.className.substr(1);
+			variableNames.push_back(variableName);
+		}
+		return variableNames;
+	}
+
+	void writeHeaderDefs(string *header_output, vector<Task> list){
+		for(int i = 0; i < list.size(); ++i){
+			*header_output += "#define " + list[i].className+ "_INDEX " + to_string(i) + ";\n";
+		} 
+	}
+
+	void writeTaskVariableNames(string *file_output, vector<Task> list, vector<string> variableNames){
+		for(int i = 0; i < list.size(); ++i){
+			*file_output +=  "static " + list[i].className + " " + variableNames[i] + ";\n";
+		} 
 	}
 
 	void writeTaskArray(string *file_output, vector<string> variableNames){
@@ -110,5 +97,30 @@ class ArduinoStrategyPattern : public IOutputStrategyPattern{
 			}
 		}
 		*file_output += "};\n";
+		*file_output += "const int taskCount = " + to_string(variableNames.size()) + ";\n";
+		*file_output += "\n";
+	}
+
+	void writeSetupFunc(string *file_output, vector<string> variableNames, vector<Task> list){
+		*file_output += "void setup(){\n";
+		for(string s : variableNames){
+			*file_output += "\t" + s + ".init(&tasks, taskCount);\n";
+		}
+		*file_output += "\n";
+		for(int i = 0; i < variableNames.size(); ++i){
+			if(list[i].startOnBoot){
+				*file_output += "\t" + variableNames[i] + ".start();\n";
+			}
+		}
+		*file_output += "}\n";
+		*file_output += "\n";
+	}
+
+	void writeLoopFunc(string *file_output, vector<string> variableNames){
+		*file_output += "void loop(){\n";
+		for(string s : variableNames){
+			*file_output += "\t" + s + ".process();\n";
+		}
+		*file_output += "}";
 	}
 };
